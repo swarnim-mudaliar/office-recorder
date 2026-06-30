@@ -1,0 +1,26 @@
+# --- Secrets: NEVER commit ---
+# Runtime secrets live in /etc/office-recorder.env (chmod 600) OUTSIDE the repo.
+*.env
+.env
+office-recorder.env
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# --- Runtime state & recordings ---
+*.db
+*.mp3
+spool/
+
+# --- SDD progress ledger (scratch) ---
+.superpowers/
+
+# --- OS / editor ---
+.DS_Store
+*.swp
+*~

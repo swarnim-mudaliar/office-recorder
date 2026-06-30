@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Office Recorder → Fireflies</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#1c2024; --muted:#6b7280; --line:#e6e8eb;
+    --accent:#3b5bdb; --accent-soft:#eef1fe; --good:#1a7f4b; --warn:#b4690e; --chip:#eef1f4;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:32px 20px 80px}
+  header.hero{margin-bottom:28px}
+  .eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:30px;line-height:1.2;margin:6px 0 8px}
+  .tagline{font-size:18px;color:var(--muted);margin:0}
+  .badges{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+  .badge{font-size:12.5px;background:var(--chip);color:#374151;border-radius:999px;padding:4px 11px;font-weight:600}
+  .badge.ok{background:#e7f6ee;color:var(--good)}
+  section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0;
+    box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  h2{font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;font-weight:700}
+  h3{font-size:16px;margin:18px 0 6px}
+  p{margin:0 0 12px}
+  .lead{font-size:17px}
+  code{font-family:var(--mono);font-size:13px;background:var(--chip);padding:1px 6px;border-radius:6px}
+  .flow{display:flex;flex-direction:column;gap:0}
+  .step{display:flex;gap:14px;align-items:flex-start;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .step:last-child{border-bottom:0}
+  .num{flex:0 0 28px;height:28px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+    font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .step b{font-weight:650}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  td.price{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:600}
+  tr.total td{border-bottom:0;border-top:2px solid var(--line);font-weight:700}
+  .muted{color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .dcard{border:1px solid var(--line);border-radius:11px;padding:14px 16px;background:#fcfcfd}
+  .dcard h3{margin:0 0 4px;font-size:15px}
+  .dcard p{margin:0;font-size:14px;color:#475467}
+  ul.clean{margin:0;padding-left:18px}
+  ul.clean li{margin:6px 0}
+  .note{display:flex;gap:10px;background:#fff8ec;border:1px solid #f3e2c0;border-radius:11px;padding:13px 15px;font-size:14.5px}
+  .note .ic{flex:0 0 auto}
+  .note b{color:var(--warn)}
+  .pill{font-family:var(--mono);font-size:12px;background:#1c2024;color:#e8eaed;border-radius:6px;padding:2px 7px}
+  footer{margin-top:24px;text-align:center;color:var(--muted);font-size:13px}
+  .kpis{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+  .kpi{flex:1 1 120px;border:1px solid var(--line);border-radius:11px;padding:12px 14px;background:#fcfcfd}
+  .kpi .v{font-size:22px;font-weight:700}
+  .kpi .l{font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Hardware design spec</div>
+    <h1>Office Discussion Recorder → Fireflies</h1>
+    <p class="tagline">A standalone button you press to record a room and auto-transcribe it. No laptop involved.</p>
+    <div class="badges">
+      <span class="badge ok">✓ Design converged</span>
+      <span class="badge">Raspberry Pi 4</span>
+      <span class="badge">~£121</span>
+      <span class="badge">No soldering</span>
+      <span class="badge">Hardened over 6 cold reviews</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>The idea</h2>
+    <p class="lead">A small box on the office table. Press the button → it records everyone from a USB mic.
+    Press again → it stops and uploads the audio to <b>Fireflies</b> for transcription, all on its own.
+    A little screen shows what it's doing. Power it on and it just works — nothing depends on anyone's laptop.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="v">1</div><div class="l">button to operate</div></div>
+      <div class="kpi"><div class="v">0</div><div class="l">wires to solder</div></div>
+      <div class="kpi"><div class="v">30d</div><div class="l">audio kept safe in S3</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <div class="flow">
+      <div class="step"><div class="num">1</div><div><b>Press to record.</b> The button is a plain USB device; the Pi reads the press and starts capturing the mic with <code>ffmpeg</code>.</div></div>
+      <div class="step"><div class="num">2</div><div><b>Press to stop.</b> The recording is saved and the device is immediately ready again — uploading happens in the background, never blocking the next chat.</div></div>
+      <div class="step"><div class="num">3</div><div><b>Stored safely.</b> The audio is uploaded to a private <b>S3</b> bucket (kept 30 days) — durable the instant it lands, so nothing is ever lost.</div></div>
+      <div class="step"><div class="num">4</div><div><b>Sent to Fireflies.</b> Fireflies can't take a file directly — it takes a link. The device hands it a temporary signed link to the S3 file, and Fireflies fetches & transcribes it.</div></div>
+      <div class="step"><div class="num">5</div><div><b>Confirmed.</b> The device quietly checks back that the transcript actually appeared. If one ever goes missing, the screen says so — it never fails silently.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What to buy — ~£121</h2>
+    <table>
+      <thead><tr><th>Part</th><th>What it's for</th><th class="price">Price</th></tr></thead>
+      <tbody>
+        <tr><td><b>Raspberry Pi 4 1GB Starter Kit</b><div class="muted">(db-tronic)</div></td><td>The brain. Kit includes the official power supply, SD card, case, heatsinks & HDMI cable.</td><td class="price">£78</td></tr>
+        <tr><td><b>Blue Snowball iCE mic</b></td><td>The microphone — you already have it. Plugs into USB.</td><td class="price">£0</td></tr>
+        <tr><td><b>Kukyller big USB button</b></td><td>Start/stop. Plugs into USB, no wiring.</td><td class="price">£15</td></tr>
+        <tr><td><b>Vutlace 7" HDMI monitor</b></td><td>Status screen. Plugs in via HDMI.</td><td class="price">£28</td></tr>
+        <tr class="total"><td colspan="2">Total</td><td class="price">~£121</td></tr>
+      </tbody>
+    </table>
+    <p class="muted" style="margin-top:12px">Assembly is just plugging in cables: mic &amp; button → USB, monitor → HDMI, power on. No soldering, no jumper wires.</p>
+  </section>
+
+  <section>
+    <h2>Key design decisions</h2>
+    <div class="grid">
+      <div class="dcard"><h3>S3 is the safety net</h3><p>Audio is durable in cloud storage the moment it's recorded. A transcription hiccup can never lose a recording or jam the device.</p></div>
+      <div class="dcard"><h3>It tells you if it failed</h3><p>The device polls Fireflies to confirm each transcript appeared, and shows a warning if one didn't — no silent losses.</p></div>
+      <div class="dcard"><h3>Screen-only feedback</h3><p>One clear status screen. Audio confirmation was dropped — it was redundant and fragile to get working.</p></div>
+      <div class="dcard"><h3>Survives WiFi drops &amp; reboots</h3><p>Uploads queue and retry across network blips and power cycles. It waits for the clock to sync before uploading.</p></div>
+      <div class="dcard"><h3>Locked-down access</h3><p>A narrowly-scoped cloud key (this device's folder only), private bucket, secrets locked to the device.</p></div>
+      <div class="dcard"><h3>Self-starting</h3><p>Runs as a boot service — power on and it's ready, no laptop, no manual steps, restarts itself if it crashes.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Building it — the shape</h2>
+    <div class="flow">
+      <div class="step"><div class="num">1</div><div><b>Flash the SD card</b> with Raspberry Pi OS (with WiFi &amp; SSH preset), plus the display settings.</div></div>
+      <div class="step"><div class="num">2</div><div><b>Plug it together</b> and boot — mic, button, monitor, power.</div></div>
+      <div class="step"><div class="num">3</div><div><b>Set up cloud bits</b> — an S3 bucket + a scoped key, and a paid Fireflies account key.</div></div>
+      <div class="step"><div class="num">4</div><div><b>Install the software</b> and enable it to run on boot.</div></div>
+      <div class="step"><div class="num">5</div><div><b>Test every path</b> — button, recording, upload, transcript, screen — end to end.</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Before you build — two things to confirm</h2>
+    <div class="note" style="margin-bottom:12px">
+      <span class="ic">⚠️</span>
+      <div><b>Fireflies must be a paid plan.</b> The free plan can't upload audio via the API at all — so the device needs a paid (ideally dedicated) Fireflies account.</div>
+    </div>
+    <div class="note">
+      <span class="ic">⚠️</span>
+      <div><b>The 7" screen is the fiddly part.</b> Getting a cheap HDMI panel to display reliably on a headless Pi is the one real bring-up risk — the exact screen settings are tuned once during setup.</div>
+    </div>
+  </section>
+
+  <footer>
+    Full technical spec: <span class="pill">design.md</span>
+  </footer>
+
+</div>
+</body>
+</html>
