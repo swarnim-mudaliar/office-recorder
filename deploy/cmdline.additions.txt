@@ -1,0 +1,4 @@
+# Append these tokens to the END of the SINGLE line in /boot/firmware/cmdline.txt
+# (space-separated; do NOT add a new line). Tune the modeline at bring-up if the
+# 7" panel shows blank/garbled output. See deploy/setup-os.md Phase 4.
+video=HDMI-A-1:1024x600-32@60D consoleblank=0 fbcon=map:1
