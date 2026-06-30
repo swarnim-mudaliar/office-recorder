@@ -26,6 +26,11 @@ class Uploader:
         log.info("spooled %s", recording.uuid)
 
     def upload_spooled(self):
+        # Intentionally NOT gated on clock_is_synced (unlike process_pending): S3 durability
+        # should not wait on NTP. Pre-sync the wall-clock can be skewed, so SigV4 may reject a
+        # few PutObjects with RequestTimeTooSkewed -> we set offline and retry next pass. This
+        # self-heals within seconds of NTP sync, and the screen shows WAIT_CLOCK (checked before
+        # the offline branch in compute_display_state), so the user never sees a wrong state.
         hit_error = False
         for it in self.db.by_status("spooled"):
             try:
