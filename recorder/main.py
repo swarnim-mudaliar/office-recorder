@@ -13,7 +13,7 @@ from recorder.clock import is_synced
 
 ENV = os.environ.get("OFFICE_RECORDER_ENV", "/etc/office-recorder.env")
 SPOOL = "/var/lib/office-recorder/spool"; DB = "/var/lib/office-recorder/state.db"
-UPLOAD_EVERY, RECONCILE_EVERY = 15, 600
+UPLOAD_EVERY, RECONCILE_EVERY = 15, 60   # transcripts confirm within ~60s (Fireflies is usually quick)
 log = logging.getLogger("main")
 
 def disk_free_mb(path=SPOOL): return shutil.disk_usage(path).free // (1024 * 1024)

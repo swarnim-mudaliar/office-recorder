@@ -9,6 +9,8 @@ Type=simple
 User=%i
 EnvironmentFile=/etc/office-recorder.env
 WorkingDirectory=/opt/office-recorder
+# Creates /var/lib/office-recorder owned by the service user (state.db + spool live here).
+StateDirectory=office-recorder
 ExecStart=/opt/office-recorder/.venv/bin/python -m recorder.main
 Restart=always
 RestartSec=3

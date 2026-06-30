@@ -20,6 +20,9 @@ spool/
 # --- SDD progress ledger (scratch) ---
 .superpowers/
 
+# --- Private operational runbook (local only — holds our real infra specifics, NEVER public) ---
+CLAUDE.md
+
 # --- OS / editor ---
 .DS_Store
 *.swp
