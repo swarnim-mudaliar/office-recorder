@@ -62,7 +62,7 @@ class Recorder:
         self._proc, path, uid = None, self._path, self._uuid
         try:
             dur = mp3_duration(path)
-        except RuntimeError as e:
+        except (RuntimeError, OSError) as e:
             log.error("%s; keeping file for upload", e)   # loud, never delete on ambiguity
             return Recording(path=path, duration=0.0, uuid=uid)
         if dur < self.min_seconds:

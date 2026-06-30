@@ -26,7 +26,7 @@ def recover_orphans(db, uploader):
             continue
         try:
             dur = mp3_duration(path)
-        except RuntimeError:
+        except (RuntimeError, OSError):
             dur = 0.0
         uid = os.path.splitext(os.path.basename(path))[0]
         uploader.spool(Recording(path=path, duration=dur, uuid=uid))

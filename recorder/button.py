@@ -25,12 +25,18 @@ class ButtonWatcher:
         if not paths:
             raise RuntimeError(f"No input device matching {self.glob_pattern} (check `ls /dev/input/by-id/`)")
         devs = [self._opener(p) for p in paths]
-        dev = select_event_node(devs)
-        for d in devs:                       # close the non-selected nodes (no fd leak)
-            if d is not dev:
+        try:
+            dev = select_event_node(devs)
+            for d in devs:                   # close the non-selected nodes (no fd leak)
+                if d is not dev:
+                    try: d.close()
+                    except Exception: pass
+            dev.grab()
+        except Exception:
+            for d in devs:                   # ensure all fds are closed on select/grab failure
                 try: d.close()
                 except Exception: pass
-        dev.grab()
+            raise
         log.info("grabbed %s (%s)", dev.path, dev.name)
         return dev
 
